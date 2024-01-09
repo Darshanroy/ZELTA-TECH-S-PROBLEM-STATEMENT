@@ -1,0 +1,852 @@
+<!DOCTYPE html><html lang="en"><head><meta content="width=device-width, initial-scale=1" name="viewport"/><meta name="ir-site-verification-token" value="-1398349336"/><link href="https://storage.googleapis.com/lds-v3-static/v1.4/static/css/bootstrap.min.css" rel="stylesheet"/><link href="https://storage.googleapis.com/lds-v3-static/v1.4/static/scss/main.min.css" rel="stylesheet"/><script>
+        window.page_redirects = "";
+    </script><link href="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/favicon.ico" rel="shortcut icon" type="image/png"/><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-00L2LQQ4KR"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-00L2LQQ4KR');
+    </script><script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TKDFRWD');</script><title>How to Make an Algo Trading Crypto Bot with Python (Part 1) – LearnDataSci</title><meta content="" name="description"/><meta name="twitter:card" value="summary"/><meta content="How to Make an Algo Trading Crypto Bot with Python (Part 1)" property="og:title"/><meta content="article" property="og:type"/><meta content="https://www.learndatasci.com/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/" property="og:url"/><meta content="https://storage.googleapis.com/lds-media/images/ethbtc-buy-sell-signals.width-745.jpg" property="og:image"/><script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1134054615222281"></script></head><body class="template-blogpage template-blog-page"><div class="gdpr-wrapper"><h5>Cookie Policy</h5><p>We use cookies to operate this website, improve usability, personalize your experience, and improve our marketing. <a href="/privacy-policy">Privacy Policy</a>.</p><p style="display:none;">By clicking "Accept" or further use of this website, you agree to allow cookies.</p><a class="btn exit-gdpr" href="#" style="font-size:14px;">Accept</a></div><div class="aff-block-anchor disable"><div class="aff-anchor-content"><a class="anchor-aff-b" href="https://www.learndatasci.com/out/datacamp-anchor-machine-learning-scientist-python/"><div class="logo"><svg height="34" viewBox="0 0 26 34" width="25" xmlns="http://www.w3.org/2000/svg"><path d="M14.001 25.028v-7.224l11.393-6.498-2.77-1.588-8.623 4.918V7.391c0-.491-.265-.95-.69-1.194L2.938.245a1.974 1.974 0 00-2.006.06A1.98 1.98 0 000 1.992v20.375c0 .69.35 1.321.934 1.687a1.973 1.973 0 002.002.061l8.317-4.743v6.457c0 .494.266.952.695 1.196l10.658 6.067 2.771-1.589-11.376-6.475zm-2.748-16.84v8.016l-8.504 4.85V3.31l8.504 4.88z" fill="#03EF62" fill-rule="evenodd"></path></svg><svg height="29" viewBox="0 0 135 29" width="135" xmlns="http://www.w3.org/2000/svg"><path d="M31.47 6.657v2.088a8.016 8.016 0 100 11.686v1.765h2.532V6.657h-2.531zm-5.483 13.41a5.478 5.478 0 110-10.956 5.478 5.478 0 010 10.955zm32.175-13.41v2.088a8.016 8.016 0 100 11.686v1.765h2.531V6.657h-2.53zm-5.485 13.41a5.478 5.478 0 11.001-10.956 5.478 5.478 0 010 10.955zM40.407 9.083l.001 9.559c0 .566.46 1.026 1.027 1.026h2.947v2.529h-2.947a3.56 3.56 0 01-3.555-3.555l-.007-9.559H35.14V6.63h2.732V2.37h2.534v4.26H44.9v2.454h-4.494zm85.812-2.499c-2.114 0-4.035.82-5.467 2.156V6.657h-2.532v21.885h2.532v-8.081a8.016 8.016 0 105.467-13.876zm0 13.494a5.477 5.477 0 01-5.467-5.15v-.656a5.477 5.477 0 115.467 5.806zm-49.578-.77a8.016 8.016 0 11.202-9.14l-2.428 1.262a5.322 5.322 0 10-.364 6.617l2.59 1.262zm36.472-12.063c.226-.372.63-.598 1.066-.598h.487c1.034 0 1.873.838 1.873 1.872v13.676h-2.582V10.61a4386.84 4386.84 0 00-6.737 10.989c-.227.371-.63.597-1.065.597h-.529c-.69 0-1.248-.559-1.248-1.248V10.58a1904.214 1904.214 0 00-7.031 11.499l-.07.116h-2.478V6.648h2.584v.031l-.06 10.722 6.192-10.155a1.25 1.25 0 011.067-.598h.49c1.033 0 1.871.835 1.873 1.868.005 2.857.015 8.063.015 8.82l6.153-10.09zm-20.186 7.342v-7.93h-2.531v2.087a8.016 8.016 0 100 11.686v1.765h2.531V14.59zm-8.016 5.478a5.478 5.478 0 110-10.955 5.478 5.478 0 010 10.955zM14.424.23v8.515a8.016 8.016 0 100 11.686v1.765h2.531V.23h-2.531zM8.94 20.066a5.477 5.477 0 110-10.955 5.477 5.477 0 010 10.955z" fill="#FFF" fill-rule="evenodd"></path></svg></div><span>Learn Machine Learning by Doing</span> <span class="btn btn-sm">Learn Now</span></a></div><span class="exit-aff"><svg height="100%" id="arrow-down" viewBox="0 0 32 32" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M31.296 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.512L16 20.736 3.2 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.448S.256 8.32.256 8.768c0 .512.192.96.512 1.28L14.72 24.32c.32.32.704.512 1.152.512.256 0 .512-.064.768-.192.128-.064.256-.128.384-.128l.128-.064 14.016-14.336c.768-.64.704-1.728.128-2.432z"></path></svg></span></div><div class="wrapper"><div class="navbar navbar-fixed-top active-bar" role="navigation"><div class="header-cta">The internet's best courses on: <a class="cta1" href="/best-data-science-online-courses/">Data Science</a> <a class="cta2" href="/best-machine-learning-courses/">Machine Learning</a> <a class="cta3" href="/best-python-courses/">Python</a></div><div class="fluid-container"><div class="navbar-header"><button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button><a class="navbar-brand" data-placement="bottom" href="/" title="Learn Data Science - Tutorials, Books, Courses, and More"><svg class="primary-logo" height="65" viewBox="0 0 239 65" width="239" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1 { fill: #edbd17; } .cls-1, .cls-2, .cls-3 { fill-rule: evenodd; } .cls-2 { fill: #851836; } .cls-3 { fill: #cacaca; }</style></defs><path class="cls-1" d="M63.606,64V48.5H47.954V64H63.606ZM32.3,64V2H1V64H32.3Z" id="L"></path><path class="cls-2" d="M135.019,63.988v-51H151.1v51H135.019Zm-48.257,0v-62h32.171v62H86.762Z" id="D"></path><path class="cls-3" d="M190.069,64V48.5H174.418V64h15.651Zm46.954,0V33h-31.3V64h31.3Zm-31.3-31V2h-31.3V33h31.3Zm31.3-15.5V2H221.372V17.5h15.651Z" id="S"></path></svg></a></div><div class="navbar-collapse collapse pull-right"><ul class="nav navbar-nav"><li class=""><a href="/daily/">Daily</a></li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Learning <b class="caret"><svg height="100%" id="arrow-down" viewBox="0 0 32 32" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M31.296 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.512L16 20.736 3.2 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.448S.256 8.32.256 8.768c0 .512.192.96.512 1.28L14.72 24.32c.32.32.704.512 1.152.512.256 0 .512-.064.768-.192.128-.064.256-.128.384-.128l.128-.064 14.016-14.336c.768-.64.704-1.728.128-2.432z"></path></svg></b></a><ul class="dropdown-menu"><li><a href="/data-science-curriculum/">Curriculum</a></li><li><a href="/tutorials/">Tutorials</a></li><li><a href="/articles/">Articles</a></li><li><a href="/glossary/">Glossary</a></li><li><a href="/books/">Books</a></li><li><a href="/solutions/">Solutions</a></li></ul></li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Courses <b class="caret"><svg height="100%" id="arrow-down" viewBox="0 0 32 32" width="100%" xmlns="http://www.w3.org/2000/svg"><path d="M31.296 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.512L16 20.736 3.2 7.68c-.256-.32-.704-.512-1.216-.512-.448 0-.896.192-1.216.448S.256 8.32.256 8.768c0 .512.192.96.512 1.28L14.72 24.32c.32.32.704.512 1.152.512.256 0 .512-.064.768-.192.128-.064.256-.128.384-.128l.128-.064 14.016-14.336c.768-.64.704-1.728.128-2.432z"></path></svg></b></a><ul class="dropdown-menu"><li><a href="/best-data-science-online-courses/">Data Science</a></li><li><a href="/best-data-analytics-courses/">Data Analytics</a></li><li><a href="/best-machine-learning-courses/">Machine Learning</a></li><li><a href="/reviews/best-python-courses/">Python</a></li><li><a href="/best-sql-courses/">SQL</a></li><li><a href="/best-excel-courses/">Excel</a></li><li><a href="/best-artificial-intelligence-ai-courses/">AI</a></li></ul></li><li class=""><a href="/team/">Team</a></li><li class="social-menu-icons"><a alt="GitHub" href="https://github.com/LearnDataSci"><img src="https://storage.googleapis.com/lds-media/documents/github-ico.svg" width="30"/><span>537</span></a></li><li class="social-menu-icons"><a alt="Twitter" href="http://twitter.com/learndatasci"><img src="https://storage.googleapis.com/lds-media/documents/twitter_Gvy5lp8.svg" width="30"/><span>2.6K</span></a></li></ul></div></div></div><div class="header-content fluid-container" id="fluidContentWrap"><script>
+    function resizeEvent() {
+
+        const navbarHeight = document.getElementsByClassName("navbar")[0].clientHeight;
+        const fluidCont = document.getElementById("fluidContentWrap");
+        fluidCont.style.paddingTop = navbarHeight + "px";
+        const navStyle = document.body;
+        if(navStyle.classList.contains("light-nav") && !navStyle.classList.contains("template-daily")){
+            document.getElementsByClassName("navbar-fixed-top")[0].style.background = "linear-gradient(34deg,#363138,#383c40)";
+        }
+    }
+
+    resizeEvent();
+    window.addEventListener("scroll", (e) => {
+        //resizeEvent();
+    });
+    window.addEventListener("resize", (e) => {
+        resizeEvent();
+    });
+</script></div><article class="article-content" style="margin-top:0;"><div class="container-fluid article-content-part" id="fluidContentWrap"><div class="blog-category-tag"><span>You are reading <b><a href="/tutorials">tutorials</a></b></span></div><article class="article-content"><div class="social-sidebar pull-left waypoint"><div class="share sticky"><div class="ttl-shares"><span class="dynamic-share">7</span><span class="share-info">SHARES</span></div><a class="st_linkedin_large icon-linkedin2" displaytext="LinkedIn" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fwww.learndatasci.com%2Ftutorials%2Falgo-trading-crypto-bot-python-strategy-backtesting%2F&amp;summary=How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_title="How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_url="/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/"></a> <a class="st_twitter_large icon-twitter" displaytext="Tweet" href="http://twitter.com/share?text=How to Make an Algo Trading Crypto Bot with Python (Part 1)&amp;url=https%3A%2F%2Fwww.learndatasci.com%2Ftutorials%2Falgo-trading-crypto-bot-python-strategy-backtesting%2F" st_title="How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_url="/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/"></a> <a class="st_facebook_large icon-facebook" displaytext="Facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.learndatasci.com%2Ftutorials%2Falgo-trading-crypto-bot-python-strategy-backtesting%2F" st_title="How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_url="/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/"></a><a class="st_email_large icon-reddit" displaytext="Email" href="http://www.reddit.com/submit?url=https%3A%2F%2Fwww.learndatasci.com%2Ftutorials%2Falgo-trading-crypto-bot-python-strategy-backtesting%2F&amp;title=How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_title="How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_url="/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/"></a> <a class="st_sharethis_large icon-hackernews" displaytext="ShareThis" href="https://news.ycombinator.com/submitlink?uhttps%3A%2F%2Fwww.learndatasci.com%2Ftutorials%2Falgo-trading-crypto-bot-python-strategy-backtesting%2F&amp;t=LearnDataSci" st_title="How to Make an Algo Trading Crypto Bot with Python (Part 1)" st_url="/tutorials/algo-trading-crypto-bot-python-strategy-backtesting/"></a></div></div><div class="article-content-wrapper"><div class="index-content clearfix"><div class="main-container"><div class="article-header-photo"><img alt="ethbtc-buy-sell-signals.jpg" height="160" src="https://storage.googleapis.com/lds-media/images/ethbtc-buy-sell-signals.2e16d0ba.fill-800x160.jpg" width="800"/></div><div class="meta-wrap"><div class="meta author"><img alt="ioannis-prapas-photo.jpg" height="149" src="https://storage.googleapis.com/lds-media/images/ioannis-prapas-photo.width-150.jpg" width="150"/><div class="r-side"><span><b>Author:</b> <a href="/author/IoannisPrapas">Ioannis Prapas</a></span><br/> <b>Data Scientist</b></div></div><div class="tags" id="Tags"></div></div><h1 style="color:#e2c03b;">How to Make an Algo Trading Crypto Bot with Python (Part 1)</h1><div class="intro"><p data-block-key="gvmqs">How to backtest strategies and trade cryptocurrency with Python using freqtrade</p></div><section><div class="paragraph read-friendly"><p data-block-key="ssogn">This article is the first of our crypto trading series, which will present how to use <a href="https://www.freqtrade.io">freqtrade</a>, an open-source trading software written in Python. We'll use freqtrade to create, optimize, and run crypto trading strategies using <a href="https://www.learndatasci.com/tutorials/python-pandas-tutorial-complete-introduction-for-beginners/">pandas</a>.</p></div></section><section><div class="headers read-friendly"><h3 id="Part1thisarticle">Part 1 (this article)</h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="mjdv1">In this first part, you'll see:</p><ul><li data-block-key="koqyo">Freqtrade's basic functionality and crypto-market terms — We'll learn how freqtrade works, how to navigate the command-line tool to download historical market data, create a new configuration file, and a new strategy.</li><li data-block-key="azahh">How to define strategies using Python and pandas — We'll define a simple moving average strategy trading between Ethereum (ETH) and Bitcoin (BTC), trying to maximize the amount of Bitcoin we hold.</li><li data-block-key="iaxlb">Backtesting a strategy on historical data to determine our strategy's performance — We'll see how to generate full reports, as well as plots to visualize our bot's simulated trades.</li></ul></div></section><section><div class="headers read-friendly"><h3 id="Part2nextarticle">Part 2 (next article)</h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="sqf1t">In the second part, we'll go into more advanced topics, such as:</p><ul><li data-block-key="2q90u">Trading with more coin pairs</li><li data-block-key="54bxq">Understanding and defining Return On Investment (ROI) and Stoploss</li><li data-block-key="vrszm">Optimizing our strategies</li><li data-block-key="nlszw">Live deployment</li><li data-block-key="yy9mo">Suggestions for further improvement</li></ul></div></section><section><div class="highlight-note style-important"><h4>Note</h4><p></p><p data-block-key="vlx7q">Please be aware of freqtrade's disclaimer (paraphrased): "This software is for educational purposes only. Do not risk money which you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS."</p><p data-block-key="lg6wn">Always start by running a trading bot in a <b>Dry-run</b> and don't use real money until you understand how freqtrade works and the profit/loss you expect.</p><p data-block-key="2j2f4">We strongly recommend you have basic Python knowledge so you can read the source code and understand the inner workings of the bot and the algorithms and techniques implemented inside. Consider enrolling in a course from our list of <a href="/reviews/best-python-courses/">best python courses</a> to improve your understanding before embarking on a trading bot.</p><p data-block-key="bo7cb">This article is for educational purposes only, and we do not advise you to do anything with it. A trading bot comes with no guarantees, even if it does well on backtesting.</p><p></p></div></section><section><div class="headers read-friendly"><h2 id="Basicsoffreqtrade">Basics of freqtrade</h2></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="287" loading="lazy" src="https://storage.googleapis.com/lds-media/images/freqtrade-logo.width-1200.jpg" width="786"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/freqtrade-logo.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="wg3gp">Freqtrade is a cryptocurrency algorithmic trading software written in Python.</p><p data-block-key="jqs5n">It allows you to:</p><ul><li data-block-key="vmaep"><b>Develop a strategy</b>: easily using Python and pandas. We'll be creating a simple strategy in this article, and you can view freqtrade's <a href="https://github.com/freqtrade/freqtrade-strategies/">example strategies repo</a>).</li><li data-block-key="2hyy6"><b>Download market data</b>: quickly download historical price data of the cryptocurrency of your choice.</li><li data-block-key="gmwds"><b>Backtest</b>: test your strategy on historical data. Backtesting is a critical step to see if your strategy has any chance of making money in the real world. It is not a guarantee for actual performance since market conditions are more complex than the downloaded data.</li><li data-block-key="plo71"><b>Optimize</b>: find the best parameters for your strategy with <a href="http://hyperopt.github.io/hyperopt/">hyperopt</a>.</li><li data-block-key="d08t0"><b>Select coin pairs to trade</b>: your selection can be static or dynamic based on simple filters, such as if trading volume greater than a certain amount.</li><li data-block-key="tz7ig"><b>Dry run</b>: test a strategy on live data with a simulated wallet.</li><li data-block-key="vvh15"><b>Live run</b>: deploy a strategy using real money via a crypto exchange's API. This is the last step after you know what you are doing and are willing to lose all your money.</li><li data-block-key="kmxmz"><b>Use a Telegram Bot</b>: control and monitor your strategies through Telegram.</li><li data-block-key="y8hhm"><b>Analyze and visualize trading history</b>: utilize trading data from save files or via an SQL database.</li></ul></div></section><section><div class="headers read-friendly"><h2 id="Installationoffreqtrade">Installation of freqtrade</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="3xx97">Ok, let's dive in by starting with the installation.</p></div></section><section><div class="headers read-friendly"><h3 id="Dockereasiestmethodforallplatforms">Docker - easiest method for all platforms</h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="71p1q">Docker is the quickest way to get started on all platforms and is the recommended approach for Windows. You will need to install <a href="https://docs.docker.com/desktop/">Docker</a> and <a href="https://docs.docker.com/compose/install/">docker-compose</a> first, then make sure Docker is running by launching Docker Desktop.</p><p data-block-key="4haoi">You can now set up freqtrade by issuing the following commands in your desired directory:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">mkdir ft_userdata
+cd ft_userdata/
+
+# Download the docker-compose file from the repository
+curl https://raw.githubusercontent.com/freqtrade/freqtrade/stable/docker-compose.yml -o docker-compose.yml
+
+# Pull the freqtrade image
+docker-compose pull
+
+# Create user directory structure
+docker-compose run --rm freqtrade create-userdir --userdir user_data</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="biz22">You should now have the following directory structure:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">ft_userdata
+└───user_data
+    ├───backtest_results
+    ├───data
+    ├───hyperopts
+    ├───hyperopt_results
+    ├───logs
+    ├───notebooks
+    ├───plot
+    └───strategies</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="expander"><input class="toggle-box" id="HowdoIinstallfreqtradewithoutDocker" type="checkbox"/><label for="HowdoIinstallfreqtradewithoutDocker"><span><div>How do I install freqtrade without Docker?</div></span><div class="pad"></div><span class="after"></span></label><div class="toggle-body"><h3 data-block-key="goekq">Direct installation</h3><p data-block-key="7tk98">For a direct installation on your system (Linux, MacOS, Windows) without Docker, I suggest you go directly to the <a href="https://www.freqtrade.io/en/stable/installation/">documentation</a>.</p><p data-block-key="yd0iq">In my case, using Ubuntu 20.04, it was as simple as</p><p data-block-key="8fvx5"><code>git clone https://github.com/freqtrade/freqtrade.git cd freqtrade git checkout stable ./setup.sh -i</code></p><p data-block-key="wrwb2">This step takes some time to complete and requires input to generate the initial configuration. Don't worry too much about this since we can change it later, but say "yes" to everything as a rule of thumb.</p><p data-block-key="8ki1u"><b>Note</b>: the installation has created a virtualenv <code>(.env)</code> that we should always activate before doing anything with freqtrade.</p><p data-block-key="reltp"><code>source ./.env/bin/activate</code></p><p data-block-key="deo6y">We can use freqtrade commands. To verify the installation was successful, run</p><p data-block-key="uvpzc"><code>freqtrade --help</code></p><p data-block-key="5p35m"><b>Important Note</b>: If you install freqtrade directly, you won't need to preface your commands with <code>docker-compose run --rm</code> like we have in the remainder of this article.</p></div></div></section><section><div class="paragraph read-friendly"><p data-block-key="nwlfv">To verify freqtrade is installed correctly and ready for use, issue the help command:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">docker-compose run --rm freqtrade --help</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="tohwr">You should see the following output</p><p data-block-key="qgftn"></p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">usage: freqtrade [-h] [-V] 
+        {trade,create-userdir,new-config,new-hyperopt,new-strategy,download-data,convert-data,convert-trade-data,list-data,backtesting,edge,hyperopt,hyperopt-list,hyperopt-show,list-exchanges,list-hyperopts,list-markets,list-pairs,list-strategies,list-timeframes,show-trades,test-pairlist,instal l-ui,plot-dataframe,plot-profit} ...</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="4xjp3">The output of the help command shows all possible freqtrade commands. In this series, we are exploring the most important commands and how to use them. The first of which is backtesting.</p></div></section><section><div class="headers read-friendly"><h2 id="Howfreqtradeteststradingstrategies">Backtesting: How freqtrade tests trading strategies</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="xiril">In this article, we are looking to create a simple strategy and backtest on historical data. <b>Backtesting</b> tests the strategy on historical data, simulating the trades the strategy was expected to make. While this is not a guarantee for performance in the real world, it is a good indication of a winning/losing strategy.</p><p data-block-key="jzjj2">Freqtrade backtests strategies through the following steps:</p><ol><li data-block-key="8eyp8">Load historic data for coin pairs (ETH/BTC, ADA/BTC, XRP/BTC, etc) in the provided config file</li><li data-block-key="vbryy">Call the strategy's <code>bot_loop_start()</code> function once. This initiates a new loop in live runs, while in backtesting, this is needed only once.</li><li data-block-key="5mn8n">Calculate the strategy's <a href="https://en.wikipedia.org/wiki/Category:Technical_indicators">technical indicators</a> by calling the <code>populate_indicators()</code> method for every pair</li><li data-block-key="1kks2">Calculate buy/sell signals by calling the <code>populate_buy_trend()</code> and <code>populate_sell_trend()</code> methods for every pair</li><li data-block-key="8skw6">Confirm buy/sell trades by calling the <code>confirm_trade_entry()</code> and <code>confirm_trade_exit()</code> methods if implemented in the strategy</li><li data-block-key="af8vd">Loop through each time period (5m, 1h, 1d, etc.) and simulate entry and exit points</li><li data-block-key="xn7lg">Finally, generate a backtest report, which summarizes all the trades and the associated profit and loss for the specified period</li></ol><p data-block-key="8wyyf">We'll define the methods mentioned above, such as <code>populate_indicators()</code>, in the upcoming paragraphs.</p><p data-block-key="uqp33">To learn more, be sure to check out the relevant <a href="https://www.freqtrade.io/en/stable/bot-basics/">documentation page</a>. It is particularly well-written and easy to read.</p></div></section><section><div class="headers read-friendly"><h2 id="DownloadingData">Downloading Data</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="5moxx">To perform backtesting, we need historical price data from an exchange. Let's start by downloading some data from <a href="/out/binance-us/">Binance</a> with the following command:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">docker-compose run --rm freqtrade download-data -p ETH/BTC -t 1d --timerange 20200101-20201231 --exchange binance</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="u0hn5">The command's arguments tell freqtrade the following:</p><ul><li data-block-key="pgx0h"><code>-p ETH/BTC</code> - Download data for the Ethereum (ETH) - Bitcoin (BTC) pair</li><li data-block-key="nrf71"><code>-t 1d</code> - Download data that have a timeframe of 1 day</li><li data-block-key="2zcy0"><code>--timerange 20200101-20201231</code> - Download data from 01/01/2020 to 31/12/2020.</li><li data-block-key="yz3zw"><code>--exchange binance</code> - Download data from the <a href="/out/binance-us/">Binance</a> exchange. Here, you can use <a href="https://github.com/freqtrade/freqtrade#supported-exchange-marketplaces">any exchange that freqtrade supports</a>.</li></ul><p data-block-key="anh8z">This command generated the file:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">ft_userdata
+└───user_data
+    └───data
+        └───binance
+               ETH_BTC-1d.json</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="eva5r">Which contains multiple open-high-low-close-volume (OHLCV) data artifacts like the following:</p></div></section><section><div class=""><div class="table-block table-style-filled-headers"><div class="tbl-wrap fullwidth-wrap"><div class="scrollable"><table><thead><tr><th>time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr></thead><tbody><tr><td>1622851200000</td><td>0.073013</td><td>0.075</td><td>0.0726</td><td>0.073986</td><td>143662.752</td></tr><tr><td>1622937600000</td><td>0.073989</td><td>0.075961</td><td>0.073626</td><td>0.075737</td><td>120623.423</td></tr></tbody></table></div></div></div></div></section><section><div class="paragraph read-friendly"><p data-block-key="mjkw3">Where the columns mean the following:</p><ul><li data-block-key="x748i">time: Unix timestamp in milliseconds</li><li data-block-key="5fq8f">Open: Opening price at the beginning of the candlestick</li><li data-block-key="a5p6s">High: Highest price reached during the candlestick</li><li data-block-key="e4a0d">Low: Lowest price reached during the candlestick</li><li data-block-key="z90t4">Close: Closing price at the end of the candlestick</li><li data-block-key="eu4n3">Volume: Quantity of asset bought or sold, displayed in base currency, in our case ETH. BTC is the quote currency.</li></ul><p data-block-key="033m8">This data can be representing neatly in the following candlestick chart:</p></div></section><section><div class="caption-image full-width-img"><div class="caption-img-wrap"><figure class="captioned-images full-width-block fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="450" loading="lazy" src="https://storage.googleapis.com/lds-media/images/freqtrade-plot-eth-btc-1d-nosignals.original.jpg" width="2645"/></div><figcaption>ETH/BTC price in the form of one-day (1d) candlesticks.</figcaption></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/freqtrade-plot-eth-btc-1d-nosignals.original.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="headers read-friendly"><h3 id="Howtoreadthegraphabove">How to read the graph above</h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="t8b7w">The chart above uses candlesticks to represent much more information than just a simple line. You can see a quick depiction of what candlesticks mean in the following image.</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="403" loading="lazy" src="https://storage.googleapis.com/lds-media/images/Green20or20red20candlestick20graphic201.width-1200.jpg" width="1200"/></div><figcaption>What is a candlestick in trading? by Callum Cliffe</figcaption></figure><div class="img-attribution">Source: <a href="https://www.ig.com/uk/trading-strategies/candlestick-trading-explained-181218">www.ig.com</a></div></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/Green20or20red20candlestick20graphic201.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="d988y">If you recall the example OHLCV row from the previous section, you can see each candlestick represents the open, high, low, close part of each row of data. Many technical trading strategies look for candlestick patterns, which we may explore in later articles.</p><p data-block-key="ar36c">An excellent book for learning some of these patterns is <a href="https://www.learndatasci.com/out/amazon-technical-analysis-financial-markets/"><i>Technical Analysis for Financial Markets</i></a>. For a brief overview, you can also view Investopedia's article, <a href="https://www.investopedia.com/trading/candlestick-charting-what-is-it/">Understanding Basic Candlestick Charts</a></p><p data-block-key="vyfjx">Now that we've seen an example of the data and understand each row's meaning, let's move on to configuring freqtrade to run our strategy.</p></div></section><section><div class="headers read-friendly"><h2 id="FreqtradeConfiguration">Freqtrade Configuration</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="q1dct">We have the required data for backtesting a strategy, but we need to create a config file, which will allow us to control several parameters of our strategy easily.</p><p data-block-key="sq05p">To create a new config, we run the following command:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">docker-compose run --rm freqtrade new-config --config user_data/learndatasci-config.json</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="c59hl">You will see a few initial questions, to which we answered with the following values:</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="219" loading="lazy" src="https://storage.googleapis.com/lds-media/images/freqtrade-initial-questions.width-1200.jpg" width="1200"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/freqtrade-initial-questions.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="obmvk">Before continuing, we need to open the config file and set <code>pair_whitelist = ["ETH/BTC"]</code>, which establishes our coin-pair of interest. Then we are ready to go.</p><p data-block-key="ijgl1">You don't need to worry about anything else for the time being, but you should make sure to understand what the other configuration options mean, so be sure to visit the <a href="https://www.freqtrade.io/en/stable/configuration/">relevant docs</a>.</p></div></section><section><div class="headers read-friendly"><h2 id="ImplementingasimplecustomstrategyMovingAverageCro">Implementing a simple, custom strategy - Moving Average Crossover</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="kq1ko">Here, we will be defining a simple moving average strategy similar to the one in the <a href="https://www.learndatasci.com/tutorials/python-finance-part-3-moving-average-trading-strategy/">Python for Finance</a> series. If you haven't read that yet, make sure to checkout. You can find more details in <a href="https://www.investopedia.com/articles/active-trading/052014/how-use-moving-average-buy-stocks.asp">Investopedia</a>.</p></div></section><section><div class="headers read-friendly"><h2 id="Understandingthestrategy">Understanding the strategy</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="i8ssx">I am going to tell you a little secret. Trading is really very simple, and you only have to do two things right:</p><ol><li data-block-key="po9hx"><b>Buy Low</b></li><li data-block-key="qi090"><b>Sell High</b></li></ol></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="413" loading="lazy" src="https://storage.googleapis.com/lds-media/images/warren-buffett-buy-low-sell-high.width-1200.jpg" width="620"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/warren-buffett-buy-low-sell-high.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="729pz">That easy? What's the catch? The tricky thing is to find the actual low and high points.</p></div></section><section><div class="paragraph read-friendly"><p data-block-key="dno0b">The idea behind the Moving Average strategy is the following:</p><ul><li data-block-key="qjx47">You have two lines<ul><li data-block-key="sugs0">The <b>Slow Moving Average (SMA)</b>: a longer-term average of past values and represents a general trend.</li><li data-block-key="pd871">The <b>Fast Moving Average (FMA)</b>: a shorter-term average of past values and represents the current trend.</li></ul></li></ul><p data-block-key="s9h5e">For our strategy, we will use the following indicators:</p><ul><li data-block-key="hooy9"><b>Buy</b> when the FMA crosses above SMA, indicating an upward trend.</li><li data-block-key="bglja"><b>Sell</b> when the FMA crosses below SMA, indicating a downward trend.</li></ul><p data-block-key="tg6f0">This is called a <b>Moving Average Crossover Strategy</b>.</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="517" loading="lazy" src="https://storage.googleapis.com/lds-media/images/ethbtc-buy-sell-signals.width-1200.jpg" width="1000"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/ethbtc-buy-sell-signals.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="headers read-friendly"><h2 id="Definingacustomstrategyforfreqtrade">Defining a custom strategy for freqtrade</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="zq76o">Let's translate the Moving Average Crossover strategy in freqtrade using <a href="https://www.learndatasci.com/tutorials/python-pandas-tutorial-complete-introduction-for-beginners/">pandas</a>.</p><p data-block-key="f9efe">Firstly, we need to create a new strategy file that will hold the logic behind our buy/sell signals.</p></div></section><section><div class="paragraph read-friendly"><p data-block-key="tg44h">!docker-compose run --rm freqtrade new-strategy -s SimpleMA_strategy --template minimal`</p></div></section><section><div class="paragraph read-friendly"><p data-block-key="0u5zh">Now, we can find the newly created file in the <i>strategies</i> folder:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">ft_userdata
+└───user_data
+    ...
+    └───strategies
+            SimpleMA_strategy.py</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="mfsoi"><code>SimpleMA_strategy.py</code> contains an autogenerated class, <code>SimpleMA_strategy</code>, and several functions we'll need to update.</p><p data-block-key="ee0ca">To define our simple strategy, we need to update the following three functions:</p><ol><li data-block-key="hju3o"><code>populate_indicators()</code></li><li data-block-key="w0bry"><code>populate_buy_trend()</code></li><li data-block-key="f1s9s"><code>populate_sell_trend()</code></li></ol><p data-block-key="a0qw8">Let's walk through each of these individually.</p></div></section><section><div class="headers read-friendly"><h3 id="1populateindicators">1. <code>populate_indicators()</code></h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="c39on">Here, we calculate the indicators needed by our strategy to produce buy/sell signals.</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="528" loading="lazy" src="https://storage.googleapis.com/lds-media/images/ethbtc-fast-slow-ma.width-1200.jpg" width="1000"/></div><figcaption>Indicators for fast moving average (blue line) and slow moving average (yellow line) plotted for ETH/BTC</figcaption></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/ethbtc-fast-slow-ma.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="e2g4f">According to our strategy, we calculate the fast-moving average <code>fast_MA</code> (calculated using the last 5 candlesticks) and the slow-moving average <code>slow_ma</code> (calculated using the previous 50 candlesticks):</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/python" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-python">class SimpleMA_strategy(IStrategy):
+    
+    ...
+    
+    def populate_indicators(self, dataframe: DataFrame, metadata: dict) -&gt; DataFrame:
+        fast_period = 5
+        slow_period = 50
+        dataframe['fast_MA'] = ta.SMA(dataframe, timeperiod=fast_period)
+        dataframe['slow_MA'] = ta.SMA(dataframe, timeperiod=slow_period)
+        
+        return dataframe</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="2wjen">Notice that we are passing a dataframe as an argument, manipulating it, then returning it. Working with dataframes in this way is what all of our functions will be doing.</p><p data-block-key="ev60n">If you're interested in seeing indicators other than simple moving averages, have a look at the <a href="https://ta-lib.github.io/ta-lib-python/doc_index.html">ta-lib docs</a>.</p></div></section><section><div class="highlight-note style-tip"><h4>Note</h4><p></p><p data-block-key="g159a">The function definitions in this class use <a href="https://docs.python.org/3/library/typing.html">type hinting</a> to define argument and return value types.</p><p></p></div></section><section><div class="headers read-friendly"><h3 id="2populatebuytrend">2. <code>populate_buy_trend()</code></h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="051fg">This function populates our buy signal, which is triggered when the <code>fast_MA</code> crosses <b>above</b> the <code>slow_MA</code> in our strategy.</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="517" loading="lazy" src="https://storage.googleapis.com/lds-media/images/ethbtc-ma-crossover-buy-signals.width-1200.jpg" width="1000"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/ethbtc-ma-crossover-buy-signals.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="y9sd4">We can accomplish this by updating <code>populate_buy_trend()</code> to include the following logic:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/python" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-python">class SimpleMA_strategy(IStrategy):
+    
+    ...
+    
+    def populate_indicators(...):
+        ...
+    
+    def populate_buy_trend(self, dataframe: DataFrame, metadata: dict) -&gt; DataFrame:
+        dataframe.loc[
+          (
+            qtpylib.crossed_above(dataframe['fast_MA'], dataframe['slow_MA'])
+          ),
+          'buy'] = 1
+        
+        return dataframe</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="bk586">Using <a href="https://qtpylib.io/docs/latest/indicators.html">qtpylib</a>, we can easily find the crossover point. Essentially, the code above populates the <code>buy</code> column with a 1 when our buy condition (<code>crossed_above</code>) is triggered.</p></div></section><section><div class="headers read-friendly"><h3 id="3populateselltrend">3. <code>populate_sell_trend()</code></h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="b2ypc">In a similar fashion to the previous function, this function populates our sell signal.</p></div></section><section><div class="caption-image"><div class="caption-img-wrap"><figure class="captioned-images fullwidth-wrap"><div class="attributed-wrap" style=""><img class="img-responsive" height="517" loading="lazy" src="https://storage.googleapis.com/lds-media/images/ethbtc-ma-crossover-sell-signals.width-1200.jpg" width="1000"/></div></figure></div><a class="zoom-in-img" href="https://storage.googleapis.com/lds-media/images/ethbtc-ma-crossover-sell-signals.width-1200.jpg" target="_blank"><svg enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="24" width="24"></rect><polygon points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"></polygon></svg></a></div></section><section><div class="paragraph read-friendly"><p data-block-key="6jz5r">According to our strategy, this is when the <code>fast_MA</code> crosses <b>below</b> the <code>slow_MA</code>.</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/python" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-python">class SimpleMA_strategy(IStrategy):
+    
+    ...
+    
+    def populate_indicators(...):
+        ...
+    
+    def populate_buy_trend(...):
+        ...
+        
+    def populate_sell_trend(self, dataframe: DataFrame, metadata: dict) -&gt; DataFrame:
+        dataframe.loc[
+          (
+            qtpylib.crossed_below(dataframe['fast_MA'], dataframe['slow_MA'])
+          ),
+          'sell'
+        ] = 1
+        
+        return dataframe</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="1ucbo">We're now using <code>crossed_below</code>—the opposite of <code>crossed_above</code>—which will populate the <code>sell</code> column with a 1 when our sell condition is triggered.</p><p data-block-key="ffe1o">By default, the generated freqtrade strategy file includes more options, such as ROI (Return On Investment) and stop-loss, discussed in part two of the article series. We'll disable them for now:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/python" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-python">class SimpleMA_strategy(IStrategy):
+    
+    ...
+    
+    # the following statement disables selling due to ROI
+    minimal_roi = {
+        "0": 100
+    }
+    
+    # the following statement disables selling due to stop-loss
+    stoploss = -1.0
+    
+    def populate_indicators(...):
+        ...
+    
+    def populate_buy_trend(...):
+        ...
+        
+    def populate_sell_trend(...):
+        ...</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="v1vc3">Now that we have a strategy filled out, we can test how it would have performed on past data.</p></div></section><section><div class="headers read-friendly"><h2 id="Backtestingthestrategy">Backtesting the strategy</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="o20wz">Having defined our simple strategy, now we want to evaluate it using historical data using <b>backtesting</b>, which allows us to place trades in the past to see how they would have performed.</p><p data-block-key="x1ebq">Backtesting isn't a perfect representation of how well our strategy would have performed because other factors affect returns in live markets, such as <a href="https://www.investopedia.com/terms/s/slippage.asp">slippage</a>.</p><p data-block-key="gd5mn">To perform backtesting with freqtrade, we can run the following command using the class and functions we just created:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">docker-compose run --rm freqtrade backtesting 
+    --strategy SimpleMA_strategy -i 1d -p ETH/BTC 
+    --timerange 20200101-20201231 
+    --starting-balance 1
+    -c ./user_data/learndatasci-config.json</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="8xmj0">The parameters in the above command are as follows:</p></div></section><section><div class=""><div class="table-block table-style-filled-headers"><div class="tbl-wrap fullwidth-wrap"><div class="scrollable"><table><thead><tr><th>Argument</th><th>Description</th></tr></thead><tbody><tr><td><code>--strategy SimpleMA_strategy</code></td><td>use the <code>SimpleMA_strategy</code> strategy we created above.</td></tr><tr><td><code>-i 1d</code></td><td>use 1 day candlesticks</td></tr></tbody></table></div></div></div></div></section><section><div class="paragraph read-friendly"><ul><li data-block-key="ur78q"><code>-p ETH/BTC</code> - trade the ETH/BTC coin pair, which trades our BTC for ETH</li><li data-block-key="1rqsr"><code>--timerange 20200101-20201231</code> - backtest for the year 2020, from its first day 01/01/2020 to its last day 12/31/2020.</li><li data-block-key="gmf7v"><code>c ./user_data/config-learndatasci.json</code> we are using the configuration that we defined earlier in this article.</li><li data-block-key="03vb6"><code>--starting-balance 1</code> we start with a balance of 1 BTC.</li></ul></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">Result for strategy SimpleMA_strategy
+========================================================== BACKTESTING REPORT ==========================================================
+|    Pair |   Buys |   Avg Profit % |   Cum Profit % |   Tot Profit BTC |   Tot Profit % |      Avg Duration |   Win  Draw  Loss  Win% |
+|---------+--------+----------------+----------------+------------------+----------------+-------------------+-------------------------|
+| ETH/BTC |      6 |           8.47 |          50.81 |       0.05086506 |           5.09 | 34 days, 12:00:00 |     3     0     3  50.0 |
+|   TOTAL |      6 |           8.47 |          50.81 |       0.05086506 |           5.09 | 34 days, 12:00:00 |     3     0     3  50.0 |
+==================================================== SELL REASON STATS =====================================================
+|   Sell Reason |   Sells |   Win  Draws  Loss  Win% |   Avg Profit % |   Cum Profit % |   Tot Profit BTC |   Tot Profit % |
+|---------------+---------+--------------------------+----------------+----------------+------------------+----------------|
+|   sell_signal |       6 |      3     0     3  50.0 |           8.47 |          50.81 |        0.0508651 |          50.81 |
+===================================================== LEFT OPEN TRADES REPORT ======================================================
+|   Pair |   Buys |   Avg Profit % |   Cum Profit % |   Tot Profit BTC |   Tot Profit % |   Avg Duration |   Win  Draw  Loss  Win% |
+|--------+--------+----------------+----------------+------------------+----------------+----------------+-------------------------|
+|  TOTAL |      0 |           0.00 |           0.00 |       0.00000000 |           0.00 |           0:00 |     0     0     0     0 |
+=============== SUMMARY METRICS ===============
+| Metric                | Value               |
+|-----------------------+---------------------|
+| Backtesting from      | 2020-01-01 00:00:00 |
+| Backtesting to        | 2020-12-31 00:00:00 |
+| Max open trades       | 1                   |
+|                       |                     |
+| Total trades          | 6                   |
+| Starting balance      | 1.00000000 BTC      |
+| Final balance         | 1.05086506 BTC      |
+| Absolute profit       | 0.05086506 BTC      |
+| Total profit %        | 5.09%               |
+| Trades per day        | 0.02                |
+| Avg. stake amount     | 0.10000000 BTC      |
+| Total trade volume    | 0.60000000 BTC      |
+|                       |                     |
+| Best Pair             | ETH/BTC 50.81%      |
+| Worst Pair            | ETH/BTC 50.81%      |
+| Best trade            | ETH/BTC 36.59%      |
+| Worst trade           | ETH/BTC -10.57%     |
+| Best day              | 0.03662727 BTC      |
+| Worst day             | -0.01058107 BTC     |
+| Days win/draw/lose    | 3 / 277 / 3         |
+| Avg. Duration Winners | 51 days, 16:00:00   |
+| Avg. Duration Loser   | 17 days, 8:00:00    |
+| Zero Duration Trades  | 0.00% (0)           |
+| Rejected Buy signals  | 0                   |
+|                       |                     |
+| Min balance           | 1.02441263 BTC      |
+| Max balance           | 1.06732320 BTC      |
+| Drawdown              | 16.44%              |
+| Drawdown              | 0.01645814 BTC      |
+| Drawdown high         | 0.06732320 BTC      |
+| Drawdown low          | 0.05086506 BTC      |
+| Drawdown Start        | 2020-09-10 00:00:00 |
+| Drawdown End          | 2020-12-19 00:00:00 |
+| Market change         | 24.93%              |
+===============================================</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="ei0yf">We get a full report that contains the results of all our trades during the specified period.</p><p data-block-key="845t9">Freqtrade split's the report into four parts:</p><p data-block-key="3v5ce"><b>1. Backtesting report</b> This section shows a performance report for every coin pair, which in our case, is only ETH/BTC.</p><p data-block-key="26zyq"></p><p data-block-key="s5cfn">The column Avg Profit % shows the average profit for all trades made while the column Cum Profit % sums up all the profits/losses. The column Tot Profit % shows instead the total profit % in relation to the starting balance. ~ freqtrade docs</p><p data-block-key="ibpxf"><b>2. Sell reason stats</b> This report shows us the performance of the sell reasons. Based on our strategy, we only used the sell signal, so we only have 1 row. Generally, we could also sell for other reasons such as accepted Return On Investment (ROI) and stop-loss. We will see this in the next article of the series.</p><p data-block-key="1lfhy"><b>3. Left Open Trades Report</b> This part of the report shows any trades that were left open at the end of the backtesting. In our case, we don't have any and in general, it is not very important as it represents the ending state of the backtesting.</p><p data-block-key="piwej"><b>4. Summary metrics</b> Personally, this is the area I usually look at first. The most important parts to point out are the following:</p><ul><li data-block-key="p5028"><i>Trades per day</i> - the average number of closed trades per day. I'm usually looking for strategies that make about ten trades per day.</li><li data-block-key="2awaw"><i>Total profit %</i> - the profit as a percentage of the starting balance.</li><li data-block-key="slhvd"><i>Drawdown</i> - the amount of the largest continuous loss</li><li data-block-key="dp08q"><i>Market change</i> - how much the market grew/shrank at the specified period. When trading more than one coin-pair, this metric is the average of market changes that all pairs incur, from the beginning to the end of the specified period. In our case the market for ETH/BTC grew by 24.93% in 2020. It's crucial to test a strategy in different market conditions, not just upward trending markets.</li></ul><p data-block-key="qs6yi">To understand the report in its entirety, make sure to read the <a href="https://www.freqtrade.io/en/stable/backtesting/#summary-metrics">relevant docs</a>.</p></div></section><section><div class="headers read-friendly"><h3 id="Notesandimprovements">Notes and improvements</h3></div></section><section><div class="paragraph read-friendly"><p data-block-key="awj6l">We can see that only six trades occurred. These trades generated a profit of 5.09%, which started with 1 BTC and ended with 1.05086506 BTC.</p><p data-block-key="hds7p">This result is not impressive, considering the risk involved. However, this strategy is as simple as it gets and has vast room for improvement:</p><p data-block-key="5p468"><b>Comparing to buy and hold</b> Just holding ETH, i.e., converting our entire stack of BTC to ETH at the beginning of the testing period, we would gain 24.93% (market change indicator), but this is not something we can generally expect. We had far less exposure staking 10% of our stack per trade and not the whole of it. It is important to test our strategy in different conditions - that is not only when the market is growing, but also when it is shrinking.</p><p data-block-key="on6vj"><b>Trading more coin-pairs</b> We only considered Ethereum, which is one of the hundreds of coins we can trade. This limit only allows for one trade to happen at a time, which is clearly suboptimal.</p><p data-block-key="w1euq"><b>Using more advanced strategies</b> We used arguably one of the simplest strategies out there, which used only simple moving averages as indicators. Adding complexity doesn't necessarily mean better performance, but there's a massive number of indicator combinations we can backtest against eachother to find the best strategy.</p><p data-block-key="tdc4u"><b>Optimizing parameters</b> Currently, we haven't attempted to optimized any hyperparameters, such as moving average period, return of investment, and stop-loss.</p><p data-block-key="n26ec"><b>Smaller time periods</b> We only considered daily candlesticks, which is one of the reasons why the bot finds only about 0.02 trades per day, making far fewer trades than a human trader. A bot can potentially make more profit by making more frequent trades and looking at more fine-detailed candlesticks.</p></div></section><section><div class="headers read-friendly"><h2 id="Plottingresults">Plotting results</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="620e3">To utilize freqtrade's plot commands, we will need to alter the <code>docker-compose.yml</code> file. The only thing we need to do is comment out one line and uncomment another. See the following excerpt from the file to see an example:</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">---
+version: '3'
+services:
+  freqtrade:
+    # image: freqtradeorg/freqtrade:stable      &lt;--- comment this line
+    # image: freqtradeorg/freqtrade:develop
+    # Use plotting image
+    image: freqtradeorg/freqtrade:develop_plot  &lt;--- uncomment this line
+    ...</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="36e6r">This tells docker-compose to pull the freqtrade Docker image that contains the correct plotting libraries.</p><p data-block-key="g27ey">We can now visualize our data, indicators, and buy/sell signals using the <code>freqtrade plot-dataframe</code> command.</p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">docker-compose run --rm freqtrade plot-dataframe -s SimpleMA_strategy --config ./user_data/learndatasci-config.json -i 1d --timerange 20200101-20201231 --indicators1 fast_MA slow_MA</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><div class="paragraph read-friendly"><p data-block-key="h1qua">The <code>--indicators1</code> option defines the indicators we want to plot, namely <i>fast_MA</i> and <i>slow_MA</i>. These must be defined inside the strategy specified with the <code>-s</code> option.</p><p data-block-key="4hv2u">By default, this creates a plotly html file available in the plot directory: <code>./user_data/plot/freqtrade-plot-ETH_BTC-1d.html</code></p></div></section><section><div class="code-embed"><pre style="position:relative;overflow: visible;"><code ace-gutter="false" ace-mode="ace/mode/text" ace-theme="ace/theme/tomorrow" class="pretty-code prettyprint language-text">ft_userdata
+└───user_data
+    ...
+    └───plot
+          freqtrade-plot-ETH_BTC-1d.html</code><div class="promo" style="
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 10px;
+    /* border: 2px solid black; */
+    /* font-weight: bold; */
+    color: #e6a307;
+    right: 0;
+    position: absolute;
+    bottom: -10px;
+    white-space: normal;
+">
+<a href="/out/dataquest-data-scientist-python-path-codeblock/" style="    display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 600;
+    color: #204156;
+    /* letter-spacing: 0.1em; */
+    font-family: proxima-nova,Helvetica,sans-serif;">
+    <div style="display: flex;
+    column-gap: 7px;">
+        <div style="display: block;
+    background-image: none;
+    margin: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: #204156;">Learn Data Science with </div>
+        <div style="display:inline;"><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;"/></div>
+    </div>
+</a>
+</div></pre></div></section><section><iframe height="500px" src="https://storage.googleapis.com/lds-files/freqtrade-plot-ETH_BTC-1d.html" width="1200px"></iframe></section><section><div class="paragraph read-friendly"><p data-block-key="u2q00">You can view a full version of this interactive plot <a href="https://storage.googleapis.com/lds-files/freqtrade-plot-ETH_BTC-1d.html">here</a>.</p><p data-block-key="ue6d6">Hover over the plot to see how the bot actually does what we wanted it to do, as defined by our simple moving average strategy:</p><ul><li data-block-key="g3fgb">Buy when <code>fast_MA</code> crosses below <code>slow_MA</code>.</li><li data-block-key="ez3l3">Sell when <code>fast_MA</code> crosses above <code>slow_MA</code>.</li></ul><p data-block-key="swr4c">To see what else you can do with <code>plot-dataframe</code>, run <code>docker-compose run --rm freqtrade plot-dataframe -h</code> or visit the relevant <a href="https://www.freqtrade.io/en/stable/plotting/">docs</a>.</p></div></section><section><div class="headers read-friendly"><h2 id="Discussion">Discussion</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="1gcuw">In this article, we've seen just a glimpse of what we can do with freqtrade:</p><ul><li data-block-key="i6pqu">Define custom strategies using pandas.</li><li data-block-key="4n3rg">Backtest them using historical data and generate relevant reports.</li><li data-block-key="hu65r">Plot results and visualize the simulated trades using plotly.</li></ul><p data-block-key="yrnyt">Follow us in the following article for more advanced usage of freqtrade, where we:</p><ul><li data-block-key="465lb">Add more coin pairs to trade with,</li><li data-block-key="2diq9">Discuss Return On Investment (ROI) and stop-loss and how to define them properly.</li><li data-block-key="7bajm">Optimize our strategy with hyperopt,</li><li data-block-key="xhhg2">Deploy a live trading bot, and</li><li data-block-key="x63jo">Discuss more advanced ways to improve.</li></ul></div></section><section><div class="headers read-friendly"><h2 id="Acknowledgement">Acknowledgement</h2></div></section><section><div class="paragraph read-friendly"><p data-block-key="jgm6y">I want to acknowledge freqtrade's helpful, well-written documentation, from which this article has taken much inspiration. I'd like to thank the developers for their effort in creating such an fantastic tool for all of us to use.</p><p data-block-key="7dfwk">Make sure to read more of the official <a href="https://www.freqtrade.io">freqtrade docs</a>.</p></div></section></div><div class="index-wrapper"><div class="ad"><div><span><img src="https://storage.googleapis.com/lds-v3-static/v1.4/static/imgs/icons/dq-logo.svg" style="width:87px;filter: invert(1) brightness(1.5);margin-bottom: 19px;"/></span></div><span><div id="typedtext" style="width:265px;"></div></span> <a href="/out/dataquest-data-scientist-python-path/">Start Learning for Free</a></div><script>
+    // set up text to print, each item in array is new line
+    let aText = new Array(
+        "Master data", "skills. Build",
+        "your career."
+    );
+    let iSpeed = 100; // time delay of print out
+    let iIndex = 0; // start printing array at this posision
+    let iArrLength = aText[0].length; // the length of the text array
+    let iScrollAt = 20; // start scrolling up at this many lines
+
+    let iTextPos = 0; // initialise text position
+    let sContents = ''; // initialise contents variable
+    let iRow; // initialise current row
+
+    function typewriter() {
+        sContents = ' ';
+        iRow = Math.max(0, iIndex - iScrollAt);
+        let destination = document.getElementById("typedtext");
+
+        while (iRow < iIndex) {
+            sContents += aText[iRow++] + '<br />';
+        }
+        destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "<i>_</i>";
+        if (iTextPos++ == iArrLength) {
+            iTextPos = 0;
+            iIndex++;
+            if (iIndex != aText.length) {
+                iArrLength = aText[iIndex].length;
+                setTimeout("typewriter()", iSpeed);
+            }
+        } else {
+            setTimeout("typewriter()", iSpeed);
+        }
+    }
+
+    setTimeout(_ => {
+        typewriter();
+    }, 500);
+</script><div class="sidebar-block newsletter"><div class="newsletter-signup-wrapper"><div id="mc_embed_signup"><h3>Get updates in your inbox</h3><p>Join over 7,500 data science learners.</p><form action="https://learndatasci.us11.list-manage.com/subscribe/post?u=789c60e0c020546463993f85b&amp;id=f53d7286eb" class="validate" id="mc-embedded-subscribe-form" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"><div id="mc_embed_signup_scroll"><input class="required email" id="mce-EMAIL" name="EMAIL" placeholder="Enter your email" type="email" value=""/><div class="clear" id="mce-responses"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div aria-hidden="true" style="position: absolute; left: -5000px;"><input name="b_789c60e0c020546463993f85b_f53d7286eb" tabindex="-1" type="text" value=""/></div><input class="button" id="mc-embedded-subscribe" name="subscribe" type="submit" value="Subscribe"/></div></form></div></div></div><div class="sidebar-block"><h3>Recent articles:</h3><a href="/reviews/best-python-courses/"><h5>The 6 Best Python Courses on the Internet in 2023</h5></a> <a href="/articles/best-course-deals-black-friday-and-cyber-monday/"><h5>Best Course Deals for Black Friday and Cyber Monday 2024</h5></a> <a href="/glossary/sigmoid-function/"><h5>Sigmoid Function</h5></a> <a href="/glossary/dot-product/"><h5>Dot Product</h5></a></div><div data-link="/best-artificial-intelligence-ai-courses" id="TrendingArticle" style="display:none;"><div class="article-block"><div class="feat-img" style="background-image:url('https://storage.googleapis.com/lds-media/images/ai-for-everyone-ani-vs-agi.2e16d0ba.fill-800x160.jpg');"></div><h1>7 Best Artificial Intelligence (AI) Courses</h1><p>Top courses you can take today to begin your journey into the Artificial Intelligence field.</p><a class="trending-link btn" href="/best-artificial-intelligence-ai-courses">Learn more</a></div></div></div></div></div><div id="ArticleFoot"></div><section style="padding-top:0px;"><hr/><div class="newsletter-signup-blog in-content-newsletter"><div class="newsletter-signup-wrapper"><div id="mc_embed_signup"><h3>Get updates in your inbox</h3><p>Join over 7,500 data science learners.</p><form action="https://learndatasci.us11.list-manage.com/subscribe/post?u=789c60e0c020546463993f85b&amp;id=f53d7286eb" class="validate" id="mc-embedded-subscribe-form" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"><div id="mc_embed_signup_scroll"><input class="required email" id="mce-EMAIL" name="EMAIL" placeholder="Enter your email" type="email" value=""/><div class="clear" id="mce-responses"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div aria-hidden="true" style="position: absolute; left: -5000px;"><input name="b_789c60e0c020546463993f85b_f53d7286eb" tabindex="-1" type="text" value=""/></div><input class="button" id="mc-embedded-subscribe" name="subscribe" type="submit" value="Subscribe"/></div></form></div></div></div></section><section class="full-width" id="AuthorDetails"><h3>Meet the Authors</h3><div class="clearfix author-block"><a href="/author/IoannisPrapas" style="text-decoration:none;"><img alt="ioannis-prapas-photo.jpg" class="author-lg-img" height="299" src="https://storage.googleapis.com/lds-media/images/ioannis-prapas-photo.width-300.jpg" width="300"/></a><div><a href="/author/IoannisPrapas" style="text-decoration:none;"><b class="auth-name">Ioannis Prapas</b></a> <a href="/author/IoannisPrapas" style="text-decoration:none;"><b class="auth-title">Data Scientist</b></a></div><p>MEng in Electrical and Computer Engineering from NTUA Athens. MSc in Big Data Management and Analytics from ULB Brussels, UPC Barcelona and TUB Berlin. Has software engineering experience working at the European Organization for Nuclear Research (CERN). Currently he is working as a Research Data Scientist on a Deep Learning based fire risk prediction system.</p></div><div style="display:block;"><div class="editor-block clearfix" style="max-width:700px;margin:0 auto;"><div class="meta author"><img alt="Brendan Martin" height="150" src="https://storage.googleapis.com/lds-media/images/Brendan-Martin.width-150.jpg" width="150"/><div class="r-side"><span><b>Editor:</b> <a href="/author/brendan">Brendan</a></span><br/> <b>Founder of LearnDataSci</b></div></div></div></div></section><div class="back-to-idx" style="margin-top:60px;"><p><a class="important-link" href="/tutorials/">Back to blog index</a></p></div></article><div class="container comments-wrap" style="margin-top:60px;"></div><div class="comments-block" style="text-align:center;"><button id="show-comments" onclick="disqus();return false;" style="width: 740px;
+    background-color: #fff1aa;
+    color: black;
+    max-width: 100%;
+    border-color: black;
+    border-width: 2px !important;
+    border-style: solid;">Load Comments</button></div><div style="max-width:720px;margin:0 auto;"><div id="disqus_thread"></div></div><script>
+            let disqus_loaded = false;
+            const disqus_shortname = 'learn-data-sci'; //Add your shortname here
+
+            function disqus() {
+
+                if (!disqus_loaded) {
+                    disqus_loaded = true;
+
+                    var e = document.createElement("script");
+                    e.type = "text/javascript";
+                    e.async = true;
+                    e.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+                    (document.getElementsByTagName("head")[0] ||
+                        document.getElementsByTagName("body")[0])
+                        .appendChild(e);
+
+                    //Hide the button after opening
+                    document.getElementById("show-comments").style.display = "none";
+                }
+            }
+
+            //Opens comments when linked to directly
+            let hash = window.location.hash.substr(1);
+            if (hash.length > 8) {
+                if (hash.substring(0, 8) == "comment-") {
+                    disqus();
+                }
+            }
+
+            if (/bot|google|baidu|bing|msn|duckduckgo|slurp|yandex/i.test(navigator.userAgent)) {
+                // Enable to allow comments for search engines
+                // disqus();
+            }
+        </script></div></article></div><div class="push"></div><footer class="footer" id="footer"><div class="footer-share"><li class="social-menu-icons"><a alt="GitHub" href="https://github.com/LearnDataSci"><img src="https://storage.googleapis.com/lds-media/documents/github-ico.svg" width="30"/></a></li><li class="social-menu-icons"><a alt="Twitter" href="http://twitter.com/learndatasci"><img src="https://storage.googleapis.com/lds-media/documents/twitter_Gvy5lp8.svg" width="30"/></a></li></div><div class="foot-content"><ul class="footer-links"><li><a href="/best-data-science-online-courses">Best Data Science Courses</a></li><li><a href="/best-machine-learning-courses">Best Machine Learning Courses</a></li><li><a href="/top-udemy-data-science-courses">Best Udemy Courses</a></li></ul><ul class="footer-links"><li><a href="/glossary">Data Science &amp; Machine Learning Glossary</a></li><li><a href="/free-data-science-books">Free Data Science Books</a></li></ul><ul class="footer-links"><li><a href="/privacy-policy">Privacy Policy</a></li></ul></div><div id="FooterFoot">© 2024 LearnDataSci. All rights reserved.<br/><br/> Use of and/or registration on any portion of this site constitutes acceptance of our <a href="/privacy-policy/">Privacy Policy</a>. The material on this site may not be reproduced, distributed, transmitted, cached or otherwise used, except with the prior written permission of LearnDataSci.com.</div></footer><div class="newsletter-signup-wrapper"><div id="mc_embed_signup"><h3>Get updates in your inbox</h3><p>Join over 7,500 data science learners.</p><form action="https://learndatasci.us11.list-manage.com/subscribe/post?u=789c60e0c020546463993f85b&amp;id=f53d7286eb" class="validate" id="mc-embedded-subscribe-form" method="post" name="mc-embedded-subscribe-form" novalidate="" target="_blank"><div id="mc_embed_signup_scroll"><input class="required email" id="mce-EMAIL" name="EMAIL" placeholder="Enter your email" type="email" value=""/><div class="clear" id="mce-responses"><div class="response" id="mce-error-response" style="display:none"></div><div class="response" id="mce-success-response" style="display:none"></div></div><div aria-hidden="true" style="position: absolute; left: -5000px;"><input name="b_789c60e0c020546463993f85b_f53d7286eb" tabindex="-1" type="text" value=""/></div><input class="button" id="mc-embedded-subscribe" name="subscribe" type="submit" value="Subscribe"/></div></form></div></div><script crossorigin="anonymous" integrity="sha512-GoORoNnxst42zE3rYPj4bNBm0Q6ZRXKNH2D9nEmNvVF/z24ywVnijAWVi/09iBiVDQVf3UlZHpzhAJIdd9BXqw==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script><script crossorigin="anonymous" integrity="sha512-th7FxBeMVpJzGyoaIBkl+SAO+lDbe/pJUbeWJkpZ5YpckO3vzKbWURjApAKfPCxn5LG1wZDpPJ2iTdrPIJQCkg==" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-static_highlight.min.js"></script><script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ["\\(", "\\)"]],
+                displayMath: [['$$', '$$'], ["\\[", "\\]"]],
+                processEscapes: true
+            },
+            displayAlign: "center",
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script><script crossorigin="anonymous" integrity="sha512-K90Mc/rYzO+mxOtUsnp8quUB+3T9o5L0QIk6C9O5eJ3juahzkWz751FnYs7BHtHkkNV4YLe8kvYGgK/oSHln1g==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg.min.js"></script><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script><script async="" src="https://storage.googleapis.com/lds-v3-static/v1.4/static/js/bootstrap.min.js"></script><script src="https://storage.googleapis.com/lds-v3-static/v1.4/static/js/main.js"></script><script>
+    jQuery(function ($) {
+        $(document).learnDataSciJS();
+    });
+</script><link async="" href="https://use.typekit.net/qab0yhk.css" rel="stylesheet"/></body></html>
